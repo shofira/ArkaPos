@@ -1,0 +1,56 @@
+.login-page {
+  background-color:#F6F6F6;
+  height: 100vh;
+}
+.login {
+  top: 10%;
+  background-color: #fff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 30px;
+  margin: auto;
+}
+h4, .text-cyan {
+  color: #57cad5;
+  font-weight: 600;
+}
+input[type="email"],
+input[type="number"],
+input[type="text"],
+input[type="password"] {
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid rgba(165, 158, 158, 0.68);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+}
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="text"]:focus,
+input[type="password"]:focus {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.btn-cyan {
+  background-color: #57cad5;
+  color: #fff;
+  font-weight: bold;
+  padding: 12px;
+  box-shadow: 0px 8px 10px rgba(113, 99, 161, 0.3);
+  border-radius: 30px;
+}
+.btn-cyan:hover, .btn-cyan:focus {
+  color: #fff;
+  box-shadow: none;
+}
+.caution {
+  margin-top: -12px;
+}
+@media(max-width: 576px) {
+  .login-page {
+    background-color:#fff
+  }
+  .login {
+    box-shadow: none;
+  }
+}
