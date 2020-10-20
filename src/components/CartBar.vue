@@ -39,6 +39,7 @@
 
         <!-- Cart Checkout -->
         <div v-else class="row ml-2 mt-3 mb-4">
+          <div>{{data}}</div>
           <b-img :src="`http://localhost:3000/${allProducts.data.image}`" fluid alt="Cart Empty" class="col-md-4"></b-img>
           <div class="description">
             <h5 class="text-left">
@@ -62,7 +63,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'CartBar',
-  props: ['type'],
+  props: ['type', 'data'],
   data () {
     return {
       cart: []

@@ -10,7 +10,7 @@
           <label class="small text-muted">Password</label>
           <input type="password" class="form-control" required v-model="form.loginPass" />
           <p class="small text-cyan text-right mt-3">Forgot Password ?</p>
-          <button type="submit" class="btn btn-cyan btn-block">Login</button>
+          <button type="submit" class="btn btn-cyan btn-block" v-bcg="{color: '#fff', bg: '#57cad5'}">Login</button>
         </form>
           <p class="small text-muted text-center mt-3">Dont have an account ? <router-link to="/register">Sign Up</router-link></p>
       </div>
@@ -21,6 +21,7 @@
 <script>
 import Swal from 'sweetalert2'
 import { mapActions } from 'vuex'
+import mixin from '../mixins'
 
 export default {
   name: 'Login',
@@ -32,6 +33,7 @@ export default {
       }
     }
   },
+  mixins: [mixin],
   methods: {
     ...mapActions({
       onLogin: 'auth/onLogin'

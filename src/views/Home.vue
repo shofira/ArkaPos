@@ -39,7 +39,7 @@
             <div v-else>
               <div class="row mt-3">
                 <div class="col-md-4 mt-3" v-for="(item, index) in allProducts.data" :key="index">
-                  <b-img :src="`http://localhost:3000/${item.image}`" fluid alt="Menu image">
+                  <b-img :src="`http://localhost:3000/${item.image}`" fluid alt="Menu image" @click="item">
                   </b-img>
                   <p>{{ item.name_product }} <br>
                   <b>Rp. {{ item.price }}</b>
@@ -78,6 +78,7 @@ import CartBar from '../components/CartBar'
 
 export default {
   name: 'Home',
+  props: ['data'],
   data () {
     return {
       rows: 5,
@@ -109,7 +110,6 @@ export default {
     }),
     detailProduct (id) {
       this.onDetail(id)
-      this.$router.push({ query: { id } })
     },
     deleteProduct (id) {
       this.onDelete(id)

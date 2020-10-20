@@ -52,7 +52,6 @@
               <div class="row mb-3">
                 <label class="small col-sm-3"> Image </label>
                 <input type="file" class="form-control col-sm-8" @change="upload($event)" />
-                <!-- <input type="text" class="form-control col-sm-8" v-model="detailProduct.image"> -->
               </div>
               <div class="row mb-3">
                 <label class="small col-sm-3"> Price </label>
@@ -181,7 +180,7 @@ export default {
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Image type must be JPG or JPEG'
+        text: 'Image type must be PNG'
       })
     },
     alertErr () {
