@@ -1,18 +1,15 @@
 <template>
-  <div id="navbar-toggle-collapse" class="sidebar-left">
+  <div id="navbar-toggle-collapse" class="sidebar-left text-center">
     <div class="container">
       <router-link to="/home">
-      <img src="../assets/image/fork.png" alt="checkout" />
-    </router-link>
-    <router-link to="/history">
-      <img src="../assets/image/clipboard.png" alt="history" />
-    </router-link>
-
-    <!-- Using modifiers -->
-    <img src="../assets/image/add.png" alt="add new items" v-b-modal.addCategory />
+        <img src="../assets/image/fork.png" alt="checkout" />
+      </router-link>
+      <router-link to="/history">
+        <img src="../assets/image/clipboard.png" alt="history" />
+      </router-link>
+      <img src="../assets/image/add.png" alt="add new items" data-toggle="modal" data-target="#modalAdd" />
+      <Modal />
     </div>
-
-    <Modal />
   </div>
 </template>
 

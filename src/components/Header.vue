@@ -19,7 +19,7 @@
         <b-icon-power @click="logout">Logout</b-icon-power>
       </b-navbar>
 
-      <header class="cart-header d-none d-md-block">
+      <header class="cart-header d-none d-lg-block">
         <h4 class="text-center">
           Cart
           <b-badge pill variant="cart">0</b-badge>
@@ -61,12 +61,12 @@ export default {
   background: #aaa0a0;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
 }
+.cart-header {
+  background: #ffffff;
+  box-shadow: 0px 4px 1px rgba(0, 0, 0, 0.25);
+  flex: 1;
+}
 @media (min-width: 768px) {
-  .cart-header {
-    background: #ffffff;
-    box-shadow: 0px 4px 1px rgba(0, 0, 0, 0.25);
-    flex: 1;
-  }
   .cart-header h4 {
     padding-top: 15px;
   }
