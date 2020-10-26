@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
 import Home from '../views/Home.vue'
 import History from '../views/History.vue'
+import Users from '../views/Users.vue'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,12 @@ const routes = [
     path: '/history',
     name: 'History',
     component: History,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/users',
+    name: 'Users',
+    component: Users,
     meta: { requiresAuth: true }
   }
 ]

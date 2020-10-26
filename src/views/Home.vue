@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-    <Header />
+    <Header type="home"/>
     <div class="content">
       <Sidebar />
       <main>
-        <div class="container mb-2 mt-3">
+        <div class="container mb-2 mt-4">
           <form @submit.prevent="search">
             <div class="form">
               <input type="text" class="form-control p-3" placeholder="Search for any items" v-model="keyword" @keyup="search" />
@@ -39,22 +39,22 @@
             <div v-else>
               <div class="row mt-3">
                 <div class="col-md-4 mt-3" v-for="(item, index) in allProducts.data" :key="index">
-                  <b-img :src="`http://localhost:3000/${item.image}`" fluid alt="Menu image" @click="item">
+                  <b-img :src="`http://localhost:3000/${item.image}`" fluid alt="Menu image" @click="addCart(item.id)">
                   </b-img>
-                  <p>{{ item.name_product }} <br>
+                  <p class="mt-3 font-weight-bold">{{ item.name_product }} <br>
                   <b>Rp. {{ item.price }}</b>
                   </p>
-                  <button @click="detailProduct(item.id)" class="btn btn-primary btn-sm mb-3" data-toggle="modal" data-target="#modalUpdate">
+                  <button @click="detailProduct(item.id)" class="btn btn-primary btn-sm mb-3 mr-1" data-toggle="modal" data-target="#modalUpdate">
                     <b-icon-pencil-square></b-icon-pencil-square>
                   </button> |
-                  <button @click="detailProduct(item.id)" class="btn btn-secondary btn-sm mb-3" data-toggle="modal" data-target="#modalDetail">
+                  <button @click="detailProduct(item.id)" class="btn btn-secondary btn-sm mb-3 ml-1 mr-1" data-toggle="modal" data-target="#modalDetail">
                     <b-icon-arrow-up-right-circle></b-icon-arrow-up-right-circle>
                   </button> |
-                  <button @click="deleteProduct(item.id)" class="btn btn-danger btn-sm mb-3">
+                  <button @click="deleteProduct(item.id)" class="btn btn-danger btn-sm mb-3 ml-1">
                     <b-icon-trash></b-icon-trash>
                   </button>
                 </div>
-                <Modal />
+                <Modal :listcart="cart"/>
               </div>
               <div class="container mt-5 mb-5">
               <b-pagination v-model="currentPage" :total-rows="rows" :per-page="2" align="fill" @click.native="pagination">
@@ -64,7 +64,59 @@
           </div>
         </div>
       </main>
-      <CartBar />
+
+      <!-- SidebarCart -->
+      <div v-if="cart.length === 0" class="sidebar-cart mt-1 d-none d-lg-block">
+        <CartBar />
+      </div>
+      <div v-else class="sidebar-cart mt-1 d-none d-lg-block">
+        <div v-for="(item, index) in cart" :key="index" class="container">
+          <CartBar :cart="item" type="checkout" />
+        </div>
+        <div class="container">
+          <div class="row">
+            <h5 class="col-sm-7 font-weight-bold text-left"> Total: </h5>
+            <b class="col-sm-5 text-left">Rp. 105.000*</b>
+          </div>
+          <p class="text-left">*Belum termasuk ppn</p>
+          <button class="btn btn-block btn-cyan text-white" data-toggle="modal" data-target="#modalCheckout">
+            Checkout
+          </button>
+          <a class="btn btn-block btn-pink text-white mb-3" href="/home">
+            Cancel
+          </a>
+        </div>
+      </div>
+
+      <!-- responsive sidebarcart -->
+      <b-button v-b-toggle.chart class="connect d-block d-lg-none" variant="light">
+        <b-icon-basket2-fill></b-icon-basket2-fill>
+      </b-button>
+      <b-sidebar id="chart" right shadow>
+        <div class="px-3 py-2 text-center">
+          <div v-if="cart.length === 0">
+            <CartBar />
+          </div>
+          <div v-else>
+            <h5 class="font-weight-bold">Checkout</h5>
+            <hr>
+            <div v-for="(item, index) in cart" :key="index" class="container">
+              <CartBar :cart="item" type="checkout" />
+            </div>
+            <div class="">
+              <div class="row">
+                <h5 class="col-sm-7 font-weight-bold text-left"> Total: </h5>
+                <b class="col-sm-5 text-left">Rp. 105.000*</b>
+              </div>
+              <p class="text-left">*Belum termasuk ppn</p>
+              <button type="submit" class="btn btn-block btn-cyan text-white" data-toggle="modal" data-target="#modalCheckout">
+                Checkout
+              </button>
+              <a class="btn btn-block btn-pink text-white" href="/home">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </b-sidebar>
     </div>
   </div>
 </template>
@@ -78,14 +130,14 @@ import CartBar from '../components/CartBar'
 
 export default {
   name: 'Home',
-  props: ['data'],
   data () {
     return {
       rows: 5,
       currentPage: 1,
-      products: [],
       keyword: null,
-      selected: null
+      selected: null,
+      cart: [],
+      type: null
     }
   },
   components: {
@@ -132,6 +184,22 @@ export default {
     pagination () {
       this.onAll(this.currentPage)
       this.$router.push({ query: { page: this.currentPage, limit: 3 } })
+    },
+    addCart (id) {
+      const cart = this.cart.filter((e) => e.id === id)
+      if (cart.length === 0) {
+        const data = this.allProducts.data.filter((e) => e.id === id)
+        data[0].qty = 1
+        this.cart = [...this.cart, data[0]]
+      } else {
+        const newData = this.cart.map((e) => {
+          if (e.id === id) {
+            e.qty += 1
+          }
+          return e
+        })
+        this.cart = newData
+      }
     }
   },
   mounted () {
@@ -180,9 +248,41 @@ input[type="text"]:focus {
   background-color: transparent;
   margin-right: 5px;
 }
-.btn-pink {
+.btn {
   font-weight: bold;
+}
+.btn-pink {
   background-color: #f24f8a;
+}
+.btn-cyan {
+  background-color: #57cad5;
+}
+.sidebar-cart {
+  background-color: #fff;
+  border: 1px solid #cecece;
+  flex: 1.4;
+  text-align: center;
+}
+.connect {
+  background-color: transparent;
+  color: #f24f8a;
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  outline: none;
+  font-size: 30px;
+  position: fixed;
+  right: 10px;
+  bottom: 80px;
+  z-index: 1;
+}
+.connect:focus {
+  background-color: transparent;
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  outline: none;
+  color: #f24f8a;
 }
 @media (min-width: 768px) {
   .content {

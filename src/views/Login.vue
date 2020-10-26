@@ -43,16 +43,19 @@ export default {
         if (result === "Cannot read property 'password' of undefined") {
           this.alertExist()
           localStorage.removeItem('id')
+          localStorage.removeItem('role')
           localStorage.removeItem('token')
           localStorage.removeItem('refreshToken')
         } else if (result === 'Need Activation') {
           this.alertActivate()
           localStorage.removeItem('id')
+          localStorage.removeItem('role')
           localStorage.removeItem('token')
           localStorage.removeItem('refreshToken')
         } else if (result === 'Incorrect password! Please try again') {
           this.alertMatch()
           localStorage.removeItem('id')
+          localStorage.removeItem('role')
           localStorage.removeItem('token')
           localStorage.removeItem('refreshToken')
         } else {

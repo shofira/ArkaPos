@@ -1,25 +1,24 @@
 <template>
-  <!-- History -->
-  <div v-if="type==='history'">
+  <div>
     <div class="header">
-      <b-navbar toggleable variant="light" class="main-header" sticky>
+      <b-navbar toggleable variant="white" class="main-header" sticky>
         <b-navbar-toggle target="navbar-toggle-collapse"></b-navbar-toggle>
-        <b-navbar-brand href="/history">History</b-navbar-brand>
-        <b-icon-power @click="logout">Logout</b-icon-power>
+        <b-navbar-brand href="/history" v-if="type==='history'">History</b-navbar-brand>
+        <b-navbar-brand href="/users" v-if="type==='Users'">Manage Users</b-navbar-brand>
+        <b-navbar-brand href="/home" v-if="type === 'home'">Food Items</b-navbar-brand>
+        <b-dropdown right  variant="transparent" no-caret>
+          <template v-slot:button-content>
+            <b-icon-person-fill class="icon"></b-icon-person-fill>
+          </template>
+          <b-dropdown-item href="#">
+            <b-icon-person class="mr-1"></b-icon-person> Profile
+          </b-dropdown-item>
+          <b-dropdown-item @click="logout">
+            <b-icon-power class="mr-2"></b-icon-power>Logout
+          </b-dropdown-item>
+        </b-dropdown>
       </b-navbar>
-    </div>
-  </div>
-
-  <!-- navbar home -->
-  <div v-else>
-    <div class="header">
-      <b-navbar toggleable type="light" variant="light" class="main-header">
-        <b-navbar-toggle target="navbar-toggle-collapse"></b-navbar-toggle>
-        <b-navbar-brand href="/home">Food Items</b-navbar-brand>
-        <b-icon-power @click="logout">Logout</b-icon-power>
-      </b-navbar>
-
-      <header class="cart-header d-none d-lg-block">
+      <header class="cart-header d-none d-lg-block" v-if="type === 'home'">
         <h4 class="text-center">
           Cart
           <b-badge pill variant="cart">0</b-badge>
@@ -58,8 +57,7 @@ export default {
 }
 .main-header {
   flex: 2.4;
-  background: #aaa0a0;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
 }
 .cart-header {
   background: #ffffff;

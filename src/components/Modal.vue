@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Modal Add -->
-    <div class="modal" tabindex="-1" id="modalAdd">
+    <div class="modal" id="modalAdd">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-body">
@@ -39,7 +39,7 @@
     </div>
 
     <!-- Modal Update -->
-    <div class="modal" tabindex="-1" id="modalUpdate">
+    <div class="modal" id="modalUpdate">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-body">
@@ -77,7 +77,7 @@
     </div>
 
     <!-- Modal Detail -->
-    <div class="modal" tabindex="-1" id="modalDetail" >
+    <div class="modal" id="modalDetail" >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-body" data-dismiss="modal">
@@ -93,6 +93,35 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal Checkout -->
+    <div class="modal" id="modalCheckout">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body font-weight-bold" data-dismiss="modal">
+            <div class="row text-left">
+              <div class="col-sm-7">
+                <h5 class="font-weight-bold">Checkout</h5>
+              </div>
+              <div class="col-sm-5">Receipt no: #123asdfj</div>
+            </div>
+            <p class="small text-left font-weight-bold">cashier : Pevite Pearce</p>
+            <div class="row text-left mt-5">
+              <p class="col-sm-8">Coffe Latte 1x</p>
+              <p class="col-sm-4">Rp. 15.000</p>
+            </div>
+            <div class="row mt-2">
+              <p class="col-sm-8 text-right">Total:</p>
+              <p class="col-sm-4 text-left">Rp. 1.335.000</p>
+            </div>
+            <p class="text-left">Payment : Cash</p>
+            <button class="btn btn-block btn-pink text-white mt-3 mb-1 p-2">Print</button>
+            <b>Or</b>
+            <button class="btn btn-block btn-cyan text-white mt-1 p-2"> Send Email </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -102,6 +131,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   name: 'Modal',
+  props: ['cart'],
   data () {
     return {
       form: {
@@ -209,11 +239,9 @@ label {
   font-weight: bold;
 }
 .btn-pink {
-  color: white;
   background-color: #f24f8a;
 }
 .btn-cyan {
-  color: white;
   background-color: #57cad5;
 }
 </style>

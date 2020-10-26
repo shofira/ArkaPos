@@ -16,6 +16,7 @@ h4, .text-cyan {
 input[type="email"],
 input[type="number"],
 input[type="text"],
+select,
 input[type="password"] {
   background: transparent;
   border: none;
@@ -23,10 +24,12 @@ input[type="password"] {
   -webkit-box-shadow: none;
   box-shadow: none;
   border-radius: 0;
+  font-size: 14px;
 }
 input[type="email"]:focus,
 input[type="number"]:focus,
 input[type="text"]:focus,
+select:focus,
 input[type="password"]:focus {
   -webkit-box-shadow: none;
   box-shadow: none;

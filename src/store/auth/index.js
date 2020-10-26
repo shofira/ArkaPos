@@ -21,12 +21,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       axios
         .post(`${url}/users/register`, payload)
-        .then(result => {
-          resolve(result.data.message)
-        })
-        .catch(err => {
-          reject(err.message)
-        })
+        .then(result => resolve(result.data.message))
+        .catch(err => reject(err.message))
     })
   },
   onLogin (context, payload) {
@@ -39,6 +35,7 @@ const actions = {
         .then(result => {
           console.log(result)
           localStorage.setItem('id', result.data.data.id)
+          localStorage.setItem('role', result.data.data.level)
           localStorage.setItem('token', result.data.data.token)
           localStorage.setItem('refreshToken', result.data.data.refreshToken)
           resolve(result.data.message)
@@ -54,6 +51,7 @@ const actions = {
         .post(`${url}/users/logout/${payload}`)
         .then(result => {
           localStorage.removeItem('id')
+          localStorage.removeItem('role')
           localStorage.removeItem('token')
           localStorage.removeItem('refreshToken')
           resolve(result)
